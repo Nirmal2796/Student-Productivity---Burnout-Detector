@@ -119,7 +119,7 @@ async function onLogin(e) {
 
                 localStorage.setItem('token', result.data.token);
 
-                window.location.href = '../user/home/home.html';
+                window.location.href = '../dashboard/dashboard.html';
         
 
             // console.log(localStorage.getItem('token'));

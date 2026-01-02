@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    min-width: 100vh;
+    background: #f8f8f8;
+}
+
+header {
+    width: 100%;
+    height: 60px;
+    background: rgb(100, 2, 71);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* .nav-list {
+    display: none;
+} */
+
+nav ul li {
+    list-style: none;
+    display: inline;
+    margin-right: 20px;
+    font-weight: 550;
+}
+
+nav ul li a{
+    color: #f9f9f9;
+    text-decoration: none;
+}
+
+nav ul li a:hover{
+    font-size: larger;
+    text-decoration: underline;
+}
+
+
+
+.dashboard {
+    width: 90%;
+    margin: 3em auto;
+    /* background: #9b9494; */
+    padding: 5px;
+}
+
+.dashboard h2{
+    color: rgb(100, 2, 71);;
+}
+
+.status-card,
+.days-card, .tasks-card {
+    width: 70%;
+    margin: 2em auto;
+    background: rgb(196, 155, 183);
+    position: relative;
+    height: 310px; /* Ensure height is defined */
+    border-radius: 20px;
+}
+.reviews-card{
+    width: 70%;
+    margin: 1em auto;
+    position: relative;
+    border-radius: 30px;
+}
+
+
+
+.days-table{
+    width: 100%;
+    padding: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 20px;
+    /* box-shadow: 0 -4px 10px rgba(0,0,0,0.4); */
+}
+
+td,th {padding: .5em 1em;}
+
+.days-table thead th {
+    background: #f9f9f9; 
+    border-bottom: 5px solid rgb(100, 2, 71);;
+    color: rgb(100, 2, 71);;
+    font-size: larger;
+    /* box-shadow: 0 1px 10px #000000; */
+    overflow: hidden; 
+}
+
+.days-table thead th:first-child{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;   /* curve left corner */
+}
+.days-table thead th:last-child{
+    border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;  /* curve right corner */
+}
+ 
+
+.days-table-body td{
+    padding: 10px 15px;
+    font-size: large;
+    text-align: center;
+    color: rgb(100, 2, 71);;
+}
+
+
+
+tbody:before {
+    line-height:1em;
+    content:".";
+    color:rgb(196, 155, 183); 
+    display:block;
+}
+
+
+#days-message-div p{
+    background: #f9f9f9;
+    margin: 50px 10rem;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+
+

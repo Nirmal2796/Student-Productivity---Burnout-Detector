@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="../dashboard/dashboard.html">Home</a></li>             
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <div class="dashboard">
+        <h2>Status</h2>
+        <div class="status-card">
+          
+           
+         <div id="status-message-div" hidden></div>
+        </div>
+    
+        <h2>Summary of 7 days</h2>
+        <div class="days-card">
+            <div class="days-table-div" id="days-table-div">
+        <table id="days-table" class="days-table">
+            <thead id="days-table-head" class="days-table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="days-table-body" class="days-table-body">
+                <tr>
+                    <td>Date</td>
+                    <td>Service</td>
+                    <td>Specialist</td>
+                    
+                </tr>
+                
+                
+            </tbody>
+        </table>
+    </div>
+    <div id="days-message-div" hidden></div>
+           
+        </div>
+    
+        <h2>Tasks</h2>
+        <div class="tasks-card">
+        </div>
+    </div>
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
