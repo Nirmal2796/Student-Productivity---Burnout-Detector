@@ -1,6 +1,5 @@
 const sign_up_user_name = document.getElementById('sign_up_name');
 const sign_up_user_email = document.getElementById('sign_up_email');
-// const sign_up_user_phone = document.getElementById('sign_up_phone');
 const sign_up_user_password = document.getElementById('sign_up_password');
 const sign_up_msg = document.getElementById('sign_up_msg');
 const sign_up_error = document.getElementById('sign_up_error');
@@ -27,7 +26,6 @@ sign_up_form.addEventListener('submit', onSignUp);
 login_form.addEventListener('submit', onLogin);
 forgot_form.addEventListener('submit', forgotPassword);
 
-let role = 'user';
 
 function ShowSignup() {
     document.getElementById('sign_up_div').hidden = false;
@@ -72,7 +70,7 @@ async function onSignUp(e) {
 
     
 
-               const result = await axios.post("http://localhost:3000/signup", User);
+           const result = await axios.post("http://localhost:3000/signup", User);
 
 
             alert(result.data.message);

@@ -17,6 +17,7 @@ const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 
 const userRouter=require('./routes/user');
+const dailyStatusRouter=require('./routes/dailyStatus');
 
 const accessLogStream=fs.createWriteStream(path.join(__dirname, 'access.log'),{flags:'a'})
 
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // For form POST data in res
 
 
 app.use(userRouter);
+app.use(dailyStatusRouter);
 
 
 
