@@ -24,6 +24,14 @@ const dailyStatusSchema=new Schema({
         type:Number,
         required:true
     },
+    score:{
+        type:Number,
+        required:true
+    },
+    status:{
+        type:String,
+        required:true
+    },
     userId: {
         type: Schema.Types.ObjectId, // Stores a MongoDB ObjectId
         ref: 'User',  // References the User model (for relationships)

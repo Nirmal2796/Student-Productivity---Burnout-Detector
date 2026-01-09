@@ -17,6 +17,11 @@ exports.addDailyStatus = async (req, res) => {
         let status = 'Healthy';
         let reasons = [];
 
+        if(studyHours > 8 && (sleepHours < 6 || energy <=2)){
+            score+=1;
+            reasons.push('Over Studying while fatigued');
+        }
+
         if (sleepHours < 6) {
             score += 2;
             reasons.push('Low sleep');
@@ -32,11 +37,13 @@ exports.addDailyStatus = async (req, res) => {
             reasons.push('Low mood');
         }
 
+        
+
         // taskCompletion is optional
-        if (taskCompletion !== null && taskCompletion < 50) {
-            score += 1;
-            reasons.push('Poor task completion');
-        }
+        // if (taskCompletion !== null && taskCompletion < 50) {
+        //     score += 1;
+        //     reasons.push('Poor task completion');
+        // }
 
         if (score >= 4) {
             status = 'Burnout';
@@ -54,10 +61,12 @@ exports.addDailyStatus = async (req, res) => {
             sleepHours: sleepHours,
             energy: energy,
             mood: mood,
+            score:score,
+            status:status,
             userId: req.user
         });
 
-        res.status(200).json({ dailyStatus: dailyStatus ,status:status});
+        res.status(200).json({ dailyStatus: dailyStatus});
 
 
     } catch (error) {
@@ -70,7 +79,7 @@ exports.getDailyStatus = async (req, res) => {
     try {
 
 
-        const status = await DailyStatus.find({ userId: req.user });
+        const status = await DailyStatus.find({ userId: req.user }).limit(7);
 
 
         res.status(200).json({ staus: status });
