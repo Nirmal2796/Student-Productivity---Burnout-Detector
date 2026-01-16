@@ -82,7 +82,7 @@ exports.getDailyStatus = async (req, res) => {
         const status = await DailyStatus.find({ userId: req.user }).limit(7);
 
 
-        res.status(200).json({ staus: status });
+        res.status(200).json({ status: status });
 
     } catch (error) {
         console.log(error);

@@ -8,7 +8,7 @@ const dailyStatusForm = document.getElementById('dailyStatus');
 
 
 document.addEventListener('DOMContentLoaded', DOMLoad);
-addEventListener('submit', onSubmit);
+dailyStatusForm.addEventListener('submit', onSubmit);
 
 
 
@@ -60,7 +60,7 @@ async function getStatus(e) {
         const result = await axios.get("http://localhost:3000/getDailyStatus", { headers: { 'Auth': token } });
 
         console.log(result.data);
-        showStatus(result.data.staus);
+        showStatus(result.data.status);
 
 
     } catch (error) {
