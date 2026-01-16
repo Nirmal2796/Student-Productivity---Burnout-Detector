@@ -29,10 +29,31 @@
 
 </div>
 
-<div class="task-div" hidden>
-    <ul id="taskList">
-        <!-- Tasks will appear here -->
-    </ul>
+<div class="task-div">
+    <!-- <ul id="taskList">
+        Tasks will appear here
+    </ul> -->
+
+    <table id="taskList">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Task</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody id="tableBody">
+      <!-- Example row -->
+       <tr>
+        <td><input type="checkbox" name="status" id="status" checked></td>
+       <td>task name</td>
+       <td><button id="delete" >Delete</button></td>
+       </tr>
+
+      <!-- More rows will be injected dynamically -->
+    </tbody>
+  </table>
 </div>
 
 

@@ -105,24 +105,14 @@ nav ul li a:hover {
 }
 
 
-.completed {
-    text-decoration: line-through;
-    color: gray;
-}
 
 button {
     margin-left: 10px;
     cursor: pointer;
 }
 
-#taskList li {
-    list-style: none;
-    /* display: inline; */
-    margin: 10px;
-    font-size: large;
-}
 
-#taskList li button {
+#taskList button {
     margin-left: 30px;
     padding: 10px 20px;
     background: rgb(100, 2, 71);
@@ -131,4 +121,66 @@ button {
     border-radius: 4px;
     font-size: 15px;
     cursor: pointer;
+}
+
+/* Table */
+
+
+#taskList table {   
+    width: 100%;
+    padding: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 20px;
+}
+
+
+
+ #taskList th,
+#taskList td {
+  padding: 10px;
+  text-align: center;
+  font-size: 10px;
+}
+
+#taskList thead th {
+  background: #f9f9f9; 
+    border-bottom: 5px solid rgb(100, 2, 71);;
+    color: rgb(100, 2, 71);;
+    font-size: larger;
+    overflow: hidden
+}
+
+#taskList thead th:first-child{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;  
+}
+#taskList thead th:last-child{
+    border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;  
+}
+
+
+#taskList tbody td{
+    padding: 10px 15px;
+    font-size: large;
+    text-align: center;
+    color: rgb(100, 2, 71);
+}
+
+/* 
+td.completed means:
+Select the SAME <td> element that has the class "completed"
+
+There is NO space because:
+- Space means "inside"
+- No space means "this element itself"
+
+So this targets:
+<td class="completed">Task name</td>
+*/
+
+#taskList tbody td.completed  {
+    color: gray;
+    text-decoration: line-through;
 }
