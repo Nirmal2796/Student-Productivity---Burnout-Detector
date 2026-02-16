@@ -14,4 +14,6 @@ router.get('/getTask',userAuthentication.authentication,taskController.getTask);
 
 router.delete('/deleteTask/:id',userAuthentication.authentication,taskController.deleteTask);
 
+router.put('/updateTask/:id',userAuthentication.authentication,taskController.updateStatus);
+
 module.exports=router;

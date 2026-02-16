@@ -126,8 +126,8 @@ button {
 /* Table */
 
 
-#taskList table {   
-    width: 100%;
+.task-div table {   
+     width: 100%;
     padding: 20px;
     border-collapse: separate;
     border-spacing: 0;
@@ -136,32 +136,35 @@ button {
 
 
 
- #taskList th,
-#taskList td {
+.task-div th,
+.task-div td {
   padding: 10px;
   text-align: center;
-  font-size: 10px;
+  /* border-bottom: 1px solid #e5e7eb; */
+  font-size: 14px;
 }
 
-#taskList thead th {
-  background: #f9f9f9; 
+.task-div thead th {
+   background: #f9f9f9; 
     border-bottom: 5px solid rgb(100, 2, 71);;
     color: rgb(100, 2, 71);;
     font-size: larger;
+    /* box-shadow: 0 1px 10px #000000; */
     overflow: hidden
 }
 
-#taskList thead th:first-child{
+.task-div thead th:first-child{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;  
 }
-#taskList thead th:last-child{
+
+.task-div thead th:last-child{
     border-top-right-radius: 20px;
      border-bottom-right-radius: 20px;  
 }
 
 
-#taskList tbody td{
+.task-div tbody td{
     padding: 10px 15px;
     font-size: large;
     text-align: center;
@@ -180,7 +183,14 @@ So this targets:
 <td class="completed">Task name</td>
 */
 
-#taskList tbody td.completed  {
+.task-div tbody td.completed  {
     color: gray;
     text-decoration: line-through;
+}
+
+.disabled-btn {
+    background-color: lightgray;
+    color: gray;
+    cursor: not-allowed  !important;
+    opacity: 0.6;
 }

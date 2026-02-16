@@ -13,7 +13,7 @@ exports.addTask = async (req, res) => {
         const task=await Task.create({
             date:today,
             taskName:req.body.task,
-            status:false,
+            completed:false,
             userId:req.user
         });        
 
@@ -52,6 +52,21 @@ exports.deleteTask = async (req, res) => {
        
         res.status(200).json({message:'Deleted successfully'});
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: error });
+    }
+}
+
+exports.updateStatus=async(req,res)=>{
+    try {
+        const { updatedStatus } = req.body;
+
+        // console.log(updatedStatus);
+
+    await Task.findByIdAndUpdate(req.params.id, { completed:updatedStatus });
+
+    res.status(200).json({ message: "Task updated" });
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: error });
