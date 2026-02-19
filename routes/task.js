@@ -16,4 +16,6 @@ router.delete('/deleteTask/:id',userAuthentication.authentication,taskController
 
 router.put('/updateTask/:id',userAuthentication.authentication,taskController.updateStatus);
 
+router.get('/getTaskSummary',userAuthentication.authentication,taskController.getTaskSummary);
+
 module.exports=router;

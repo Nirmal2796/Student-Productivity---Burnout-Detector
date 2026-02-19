@@ -74,12 +74,7 @@ nav ul li a:hover{
     height: 310px; /* Ensure height is defined */
     border-radius: 20px;
 }
-.reviews-card{
-    width: 70%;
-    margin: 1em auto;
-    position: relative;
-    border-radius: 30px;
-}
+
 
 .days-card a{
     position: absolute;
@@ -167,4 +162,31 @@ tbody:before {
   color: red;
 }
 
+
+.summary-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-item h3 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: rgb(100, 2, 71);
+}
+
+.summary-item p {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.status-card,
+.days-card,.tasks-card {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 

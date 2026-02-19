@@ -1,4 +1,4 @@
-const Task=require('../models/task');
+const Task = require('../models/task');
 
 exports.addTask = async (req, res) => {
     try {
@@ -10,14 +10,14 @@ exports.addTask = async (req, res) => {
 
         // const taskName=req.body.task;
 
-        const task=await Task.create({
-            date:today,
-            taskName:req.body.task,
-            completed:false,
-            userId:req.user
-        });        
+        const task = await Task.create({
+            date: today,
+            taskName: req.body.task,
+            completed: false,
+            userId: req.user
+        });
 
-        res.status(200).json({task:task});
+        res.status(200).json({ task: task });
 
 
     } catch (error) {
@@ -32,10 +32,10 @@ exports.getTask = async (req, res) => {
         const today = new Date();
         today.setUTCHours(0, 0, 0, 0);
 
-        const tasks=await Task.find({date:today});
+        const tasks = await Task.find({ date: today });
 
-       
-        res.status(200).json({tasks:tasks });
+
+        res.status(200).json({ tasks: tasks });
 
     } catch (error) {
         console.log(error);
@@ -46,11 +46,11 @@ exports.getTask = async (req, res) => {
 exports.deleteTask = async (req, res) => {
     try {
 
-        const id=req.params.id;
+        const id = req.params.id;
 
-        await Task.deleteOne({_id:id});//delete the document and returns operation info not the deleted document
-       
-        res.status(200).json({message:'Deleted successfully'});
+        await Task.deleteOne({ _id: id });//delete the document and returns operation info not the deleted document
+
+        res.status(200).json({ message: 'Deleted successfully' });
 
     } catch (error) {
         console.log(error);
@@ -58,15 +58,43 @@ exports.deleteTask = async (req, res) => {
     }
 }
 
-exports.updateStatus=async(req,res)=>{
+exports.updateStatus = async (req, res) => {
     try {
         const { updatedStatus } = req.body;
 
         // console.log(updatedStatus);
 
-    await Task.findByIdAndUpdate(req.params.id, { completed:updatedStatus });
+        await Task.findByIdAndUpdate(req.params.id, { completed: updatedStatus });
 
-    res.status(200).json({ message: "Task updated" });
+        res.status(200).json({ message: "Task updated" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: error });
+    }
+}
+
+exports.getTaskSummary = async (req, res) => {
+    try {
+
+        const threeDaysAgo = new Date();
+        threeDaysAgo.setUTCHours(0, 0, 0, 0);
+
+        threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
+        const tasks = await Task.find({
+            date: { $gte: threeDaysAgo }
+        });
+
+        const total = tasks.length;
+        const completed = tasks.filter(t => t.completed).length;
+        const notCompleted = total - completed;
+
+        const completionRate = total === 0
+            ? 0
+            : Math.round((completed / total) * 100);
+
+        res.status(200).json({ totalTasks: total, completed:completed, notcompleted:notCompleted, completionRate:completionRate });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: error });
