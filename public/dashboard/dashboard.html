@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <div class="container">
             <nav>
                 <ul class="nav-list">
-                    <li><a href="../dashboard/dashboard.html">Home</a></li>  
+                    <li><a href="../dashboard/dashboard.html">Home</a></li>
                     <li><a href="../dailyStatus/dailyStatus.html">Daily Status</a></li>
-                    <li><a href="../tasks/tasks.html">Tasks</a></li>             
+                    <li><a href="../tasks/tasks.html">Tasks</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,74 +24,76 @@
 
 
     <div class="dashboard">
-        <h2>Status</h2>
+        <h2>Weekly Status</h2>
         <div class="status-card">
-          
-           
-         <div id="status-message-div" hidden></div>
+            <h3 class="status-title" id="status"></h3>
+            <p class="status-reason" id="reason"></p>
+            <p class="status-suggestion" id="suggestion"></p>
         </div>
-    
+
         <h2>Summary of days</h2>
         <div class="days-card">
             <div class="days-table-div" id="days-table-div">
-        <table id="days-table" class="days-table">
-            <thead id="days-table-head" class="days-table-head">
-                <tr>
-                    <th>Date</th>
-        <th>Study (hrs)</th>
-        <th>Sleep (hrs)</th>
-        <th>Energy</th>
-        <th>Mood</th>
-        <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="days-table-body" class="days-table-body">
-                <tr>
-        <td>2025-01-10</td>
-        <td>5</td>
-        <td>6.5</td>
-        <td>3</td>
-        <td>4</td>
-        <td class="status at-risk">At Risk</td>
-      </tr>
-                
-                
-            </tbody>
-        </table>
-    </div>
-    <div id="days-message-div" hidden></div>
+                <table id="days-table" class="days-table">
+                    <thead id="days-table-head" class="days-table-head">
+                        <tr>
+                            <th>Date</th>
+                            <th>Study (hrs)</th>
+                            <th>Sleep (hrs)</th>
+                            <th>Energy</th>
+                            <th>Mood</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="days-table-body" class="days-table-body">
+                        <!-- <tr>
+                            <td>2025-01-10</td>
+                            <td>5</td>
+                            <td>6.5</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td class="status at-risk">At Risk</td>
+                        </tr> -->
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="days-message-div" hidden><p>No data yet. Start by adding today’s data.</p></div>
+
             <a href="../dailyStatus/dailyStatus.html">View More</a>
         </div>
-    
+
         <h2>Summary of last 3 days Tasks</h2>
         <div class="tasks-card">
-    <div class="summary-box">
-        <div class="summary-item">
-            <h3 id="totalTasks"></h3>
-            <p>Total Tasks</p>
+            <div class="summary-box">
+                <div class="summary-item">
+                    <h3 id="totalTasks"></h3>
+                    <p>Total Tasks</p>
+                </div>
+
+                <div class="summary-item">
+                    <h3 id="completedTasks"></h3>
+                    <p>Completed</p>
+                </div>
+
+                <div class="summary-item">
+                    <h3 id="missedTasks"></h3>
+                    <p>Missed</p>
+                </div>
+
+                <div class="summary-item">
+                    <h3 id="completionRate"></h3>
+                    <p>Completion Rate</p>
+                </div>
+            </div>
         </div>
 
-        <div class="summary-item">
-            <h3 id="completedTasks"></h3>
-            <p>Completed</p>
-        </div>
-
-        <div class="summary-item">
-            <h3 id="missedTasks"></h3>
-            <p>Missed</p>
-        </div>
-
-        <div class="summary-item">
-            <h3 id="completionRate"></h3>
-            <p>Completion Rate</p>
-        </div>
     </div>
-</div>
 
-    </div>
- 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>

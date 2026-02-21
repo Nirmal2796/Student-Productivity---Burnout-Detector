@@ -4,6 +4,8 @@ const energy = document.getElementById('energy');
 const mood = document.getElementById('mood');
 const tbody = document.getElementById('tableBody');
 
+const days_table = document.getElementById('days-table');
+
 const dailyStatusForm = document.getElementById('dailyStatus');
 
 
@@ -38,9 +40,21 @@ async function onSubmit(e) {
 
         const result = await axios.post("http://localhost:3000/addDailyStatus", dailyStatus, { headers: { 'Auth': token } });
 
-        console.log(result.data.dailyStatus);
+        console.log(result.data);
 
-        addNewRow(result.data.dailyStatus);
+        if (result.data.dailyStatus.length == 0) {
+            days_table.hidden = true;
+            document.getElementById('days-message-div').hidden = false;
+        }
+        else {
+
+            if (days_table.hidden = true) {
+                days_table.hidden = false;
+                document.getElementById('days-message-div').hidden = true;
+            }
+
+            addNewRow(result.data.dailyStatus);
+        }
 
         dailyStatusForm.reset();
 
@@ -48,7 +62,7 @@ async function onSubmit(e) {
         console.log(error);
         dailyStatusForm.reset();
         alert(error.response.data.error);
-        
+
     }
 }
 
@@ -60,7 +74,20 @@ async function getStatus(e) {
         const result = await axios.get("http://localhost:3000/getDailyStatus", { headers: { 'Auth': token } });
 
         console.log(result.data);
-        showStatus(result.data.status);
+
+        if (result.data.status.length == 0) {
+            days_table.hidden = true;
+            document.getElementById('days-message-div').hidden = false;
+        }
+        else {
+
+            if (days_table.hidden = true) {
+                days_table.hidden = false;
+                document.getElementById('days-message-div').hidden = true;
+            }
+
+            showStatus(result.data.status);
+        }
 
 
     } catch (error) {

@@ -20,7 +20,8 @@
     </header>
 
     <div class="addLog">
-        <h2>Daily Check-In</h2>
+        <h2>Daily Check-In</h2> 
+        <p>(Once record entered can't be updated or deleted later.)</p>
   <form id="dailyStatus">
     
 
@@ -80,7 +81,7 @@
 
   <h3>Last 7 Days Status</h3>
 
-  <table>
+  <table id="days-table">
     <thead>
       <tr>
         <th>Date</th>
@@ -94,7 +95,7 @@
 
     <tbody id="tableBody">
       <!-- Example row -->
-      <tr>
+      <!-- <tr>
         <td>2025-01-10</td>
         <td>5</td>
         <td>6.5</td>
@@ -119,17 +120,14 @@
         <td>3</td>
         <td>4</td>
         <td class="status burnout">Burnout</td>
-      </tr>
+      </tr> -->
 
 
       <!-- More rows will be injected dynamically -->
     </tbody>
   </table>
 
-  <!-- Empty state -->
-  <!--
-  <p class="emptyState">No check-ins yet. Start by adding today’s data.</p>
-  -->
+  <div id="days-message-div" hidden><p>No data yet. Start by adding today’s data.</p></div>
 
 </div>
 

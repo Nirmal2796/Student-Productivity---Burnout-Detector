@@ -1,15 +1,17 @@
 const tbody = document.getElementById('days-table-body');
 
+const days_table=document.getElementById('days-table');
 
 
 
 document.addEventListener('DOMContentLoaded', DOMLoad);
 
 
-function DOMLoad() {
+async function DOMLoad() {
     try {
-        getStatus();
-        getTaskSummary();
+        await getDashboardSummary();
+        await getStatus();
+        await getTaskSummary();
     } catch (error) {
 
     }
@@ -23,11 +25,28 @@ async function getStatus(e) {
         const result = await axios.get("http://localhost:3000/getDailyStatus", { headers: { 'Auth': token } });
 
         console.log(result.data);
-        const rows = result.data.status.slice(0, 3);
 
-        for (let r of rows) {
-            addNewRow(r);
+        if (result.data.status.length == 0) {
+            days_table.hidden=true;
+            document.getElementById('days-message-div').hidden=false;
         }
+        else{
+
+            if(days_table.hidden=true){
+                days_table.hidden=false;
+                document.getElementById('days-message-div').hidden=true;
+            }
+
+            const rows = result.data.status.slice(3, 7);
+
+            // console.log(rows);
+    
+            for (let r of rows) {
+                addNewRow(r);
+            }
+
+        }
+
 
 
     } catch (error) {
@@ -76,6 +95,38 @@ async function getTaskSummary() {
         document.getElementById('missedTasks').textContent = result.data.notcompleted;
         document.getElementById('completionRate').textContent = result.data.completionRate + "%";
 
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getDashboardSummary() {
+    try {
+        const token = localStorage.getItem('token');
+
+        const result = await axios.get("http://localhost:3000/getDashboardSummary", { headers: { 'Auth': token } });
+
+        // console.log(result.data);
+
+        const response=result.data;
+
+        const status=document.getElementById("status");
+
+        if(response.status=='Burnout'){
+            status.classList.add('status','burnout');
+        }
+        else if(response.status=='Healthy'){
+            status.classList.add('..status.healthy')
+        }
+        else{
+            status.classList.add('.status.at-risk')
+        }
+
+        // console.log(response);
+        status.textContent = response.status;
+        document.getElementById("reason").textContent = response.reason;
+        document.getElementById("suggestion").textContent = response.suggestion;
 
     } catch (error) {
         console.log(error);

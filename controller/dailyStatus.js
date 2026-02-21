@@ -78,10 +78,10 @@ exports.addDailyStatus = async (req, res) => {
 exports.getDailyStatus = async (req, res) => {
     try {
 
+        const status = await DailyStatus.find({ userId: req.user }).sort({ date: -1 }).limit(7);
 
-        const status = await DailyStatus.find({ userId: req.user }).limit(7);
-
-
+        status.reverse();
+        
         res.status(200).json({ status: status });
 
     } catch (error) {
