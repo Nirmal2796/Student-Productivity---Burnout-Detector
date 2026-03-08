@@ -17,8 +17,8 @@ exports.addDailyStatus = async (req, res) => {
         let status = 'Healthy';
         let reasons = [];
 
-        if(studyHours > 8 && (sleepHours < 6 || energy <=2)){
-            score+=1;
+        if (studyHours > 8 && (sleepHours < 6 || energy <= 2)) {
+            score += 1;
             reasons.push('Over Studying while fatigued');
         }
 
@@ -37,7 +37,7 @@ exports.addDailyStatus = async (req, res) => {
             reasons.push('Low mood');
         }
 
-        
+
 
         // taskCompletion is optional
         // if (taskCompletion !== null && taskCompletion < 50) {
@@ -61,12 +61,12 @@ exports.addDailyStatus = async (req, res) => {
             sleepHours: sleepHours,
             energy: energy,
             mood: mood,
-            score:score,
-            status:status,
+            score: score,
+            status: status,
             userId: req.user
         });
 
-        res.status(200).json({ dailyStatus: dailyStatus});
+        res.status(200).json({ dailyStatus: dailyStatus });
 
 
     } catch (error) {
@@ -78,11 +78,44 @@ exports.addDailyStatus = async (req, res) => {
 exports.getDailyStatus = async (req, res) => {
     try {
 
-        const status = await DailyStatus.find({ userId: req.user }).sort({ date: -1 }).limit(7);
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
 
-        status.reverse();
-        
-        res.status(200).json({ status: status });
+        const sixDaysAgo = new Date();
+        sixDaysAgo.setDate(today.getDate() - 6);
+        sixDaysAgo.setHours(0, 0, 0, 0);
+
+        const records = await DailyStatus.find({
+            userId: req.user._id,
+            date: { $gte: sixDaysAgo, $lte: today }
+        });
+
+        let weekData = [];
+
+        for (let i = 0; i < 7; i++) {
+
+            const day = new Date(sixDaysAgo);
+            day.setDate(sixDaysAgo.getDate() + i);
+
+            const record = records.find(r =>
+                r.date.toDateString() === day.toDateString()
+            );
+
+            weekData.push({
+                date: day,
+                studyHours: record ? record.studyHours : 0,
+                sleepHours: record ? record.sleepHours : 0,
+                mood: record ? record.mood : 0,
+                energy: record ? record.energy : 0,
+                status: record ? record.status : "No Entry"
+            });
+        }
+
+        // const status = await DailyStatus.find({ userId: req.user }).sort({ date: -1 }).limit(7);
+
+        // status.reverse();
+
+        res.status(200).json({ status: weekData });
 
     } catch (error) {
         console.log(error);

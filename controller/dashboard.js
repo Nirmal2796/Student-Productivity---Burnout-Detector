@@ -6,67 +6,92 @@ const DailyStatus = require('../models/dailyStatus');
 
 exports.getDashboardSummary = async (req, res) => {
     try {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
 
-        const status = await DailyStatus.find({
+        const sixDaysAgo = new Date();
+        sixDaysAgo.setDate(today.getDate() - 6);
+        sixDaysAgo.setHours(0, 0, 0, 0);
+
+        const records = await DailyStatus.find({
             userId: req.user._id,
-            date: { $lte: sevenDaysAgo }
-        }).sort({ date: 1 });
+            date: { $gte: sixDaysAgo, $lte: today }
+        });
 
-        // console.log(status);
+        let weekData = [];
 
-        if (!status || status.length === 0) {
-            return res.json({
-                status: "No Data",
-                reason: "Not enough data to analyze yet.",
-                suggestion: "Log your daily study, sleep, and mood for a few days."
+        for (let i = 0; i < 7; i++) {
+
+            const day = new Date(sixDaysAgo);
+            day.setDate(sixDaysAgo.getDate() + i);
+
+            const record = records.find(r =>
+                r.date.toDateString() === day.toDateString()
+            );
+
+            weekData.push({
+                studyHours: record ? record.studyHours : 0,
+                sleepHours: record ? record.sleepHours : 0,
+                energy: record ? record.energy : 0,
+                mood: record ? record.mood : 0,
+                score: record ? record.score : 0,
+                logged: record ? true : false
             });
         }
 
 
+
+
         let prompt = `
-                    You are an academic productivity and mental well-being analyst.
+                        You are an academic productivity and well-being analyst.
 
-                    Below is the student's recent productivity and wellness data.
-                    The dataset may contain fewer than 7 days.
+                        You will receive the student's last 7 calendar days of data.
 
-                    Analyze overall patterns and trends across the available days.
-                    Do not base conclusions on a single isolated bad day.
-                    Look for repeated low sleep, consistently low energy, declining mood, or frequent overstudying while fatigued.
+                        Important rules:
+                        - Some days may have no entry.
+                        - If "logged" is false or values are 0, it means the student did NOT log data that day.
+                        - Do NOT assume the student actually slept or studied 0 hours.
+                        - Analyze only the available logged days.
 
-                    If the data is limited, make a cautious and balanced judgment.
+                        Focus on patterns such as:
+                        - repeated low sleep
+                        - declining mood or energy
+                        - studying heavily while fatigued
 
-                    `;
+                        Avoid judging based on a single bad day.
+                        If there is very little data, make a cautious judgment.
 
-        status.forEach((s, index) => {
+                        `;
+
+        weekData.forEach((d, index) => {
             prompt += `
                         Day ${index + 1}:
-                        Study Hours: ${s.studyHours}
-                        Sleep Hours: ${s.sleepHours}
-                        Energy: ${s.energy}
-                        Mood: ${s.mood}
-                        Score: ${s.score}
+                        Logged: ${d.logged}
+                        Study Hours: ${d.studyHours}
+                        Sleep Hours: ${d.sleepHours}
+                        Energy: ${d.energy}
+                        Mood: ${d.mood}
+                        Score: ${d.score}
                         `;
         });
 
         prompt += `
 
                     Instructions:
-                    1. Determine the overall status (Healthy, At Risk, or Burnout) based on trends across the available days.
-                    2. Provide a short reason (maximum 20 words).
-                    3. Provide exactly 2 concise and practical suggestions (maximum 12 words each) and Suggestion must be a single short paragraph.
-                        Do NOT use arrays..
-                    4. Keep the response brief and direct.
+                    1. Determine overall status: Healthy, At Risk, or Burnout.
+                    2. Reason: one short sentence (max 20 words).
+                    3. Suggestion: one short paragraph (max 20 words).
 
-                    Respond ONLY in the following JSON format:
+                    Return ONLY valid JSON:
+
                     {
                     "status": "",
                     "reason": "",
                     "suggestion": ""
-                    } Return ONLY valid raw JSON.
-                    Do not include markdown.
-                    Do not include backticks.
+                    }
+
+                    No markdown.
+                    No backticks.
                     `;
 
 

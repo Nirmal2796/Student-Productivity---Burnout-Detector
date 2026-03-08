@@ -113,8 +113,11 @@ function addNewRow(r) {
     else if (r.status == 'Burnout') {
         status = `<td class="status burnout">Burnout</td>`;
     }
-    else {
+    else if (r.status == 'Healthy') {
         status = `<td class="status healthy ">Healthy</td>`;
+    }
+    else{
+        status = `<td>${r.status}</td>`;
     }
 
 
