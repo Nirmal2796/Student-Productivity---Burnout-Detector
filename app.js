@@ -50,7 +50,7 @@ app.use(dashboardRouter);
 
 
 // Connects to the MongoDB database 'dtdexpense' using Mongoose
-mongoose.connect('mongodb+srv://nirmal:6X4PCGjNhLBr1qzj@cluster0.qyfqoli.mongodb.net/student_productivity?appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
 .then((result)=>{
   app.listen(3000);
 })
